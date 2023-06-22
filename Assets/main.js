@@ -1,17 +1,11 @@
-// Quiz Inputs
-// Start button
-// Question answers
-// score input
-// reset high scores  
+var visibleQuestion = document.querySelector(".question");
+var timerElement = document.querySelector(".timer-counter");
+var startButton = document.querySelector(".start-button");
 
-// Basic structure
-// quiz questions location
-// quiz question answers
-// user answer
-// correct answer
-// total correct
-// user high scores
-// 
+var UserScore = 0;
+var timer;
+var timerCounter;
+var questionsComplete = false;
 
 var questionBank= [
     { 
@@ -62,3 +56,49 @@ var questionBank= [
         correct: "a",
       },
 ];
+
+// lay out basic structure
+
+
+function startQuiz(){
+    timer = 90;
+    
+    // Stops the start button from being called when game is in session
+    startButton.disabled = true;
+
+    function getQuestions(){
+
+
+    }
+
+    function showAnswer(){
+
+    }
+
+    getQuestions();
+    showAnswer();
+};
+
+function endGame(){
+    //show last page and user score
+}
+
+
+function timerEl(){
+    //set timer 
+    timer = setInterval(function(){
+        timerCounter --;
+        timerElement.textContent = "Time Left: " + timerCounter + " seconds";
+        if (timerCounter === 0){
+            //if time runs out end the game
+            clearInterval(timer)
+            endGame();
+        }
+    }, 1000);
+}
+
+// Add event listener for button
+
+// call start game function
+
+// reset button
