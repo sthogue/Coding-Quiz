@@ -6,15 +6,8 @@ var quizPrompt = $('.quiz-prompt');
 var UserScore = 0;
 var timer = null;
 var timerCounter;
-var questionsComplete = false;
 
-var questionBank= [
-    { 
-        question: "Are Java and Javascript the same computer language?",
-        a: "Yes",
-        b: "No",
-        correct: "b"
-    },
+var questionsBank = [
     {
         question: "Commonly used data types do not include?",
         a: "Strings",
@@ -61,44 +54,70 @@ var questionBank= [
 // lay out basic structure
 
 
-function startQuiz(quizContainer, questionNumber){
+function startQuiz(event){
+    event.preventDefault();
     timerCounter = 90;
     timerEl();
     // Stops the start button from being called when game is in session
     startButton.disabled = true;
 
-    // var output = [];
-    // var answersBank;
-    function getQuestions(questions){
-        for (var i = 0; i < questions; i++) {
+    var output = [];
+    var UserAnswer; // This will hold what the user selects
+    var questionsComplete = 0; // counts how many questions users has completed
+}
+function getQuestions(index){
+    var displayQuiz = $('<div>', {id: 'question'});
         
-            answersBank = [];
-            
-            var displayQuiz = $('<div>');
-            for(letter in question[i].answers){
-                // add radio button
-                answersBank$('<flex-row justify-space-between align-center p-2 bg-light text-dark');
-                answersBank$('<li class="flex-row justify-space-between align-center p-2 bg-light text-dark">')
-                answersBank.text(answers);
-                quizPrompt.append(questionBank);
-            }
+    var questionPrompt = $('<h2>Question ' + (index + 1) + ':</h2>');
+    displayQuiz.append(questionPrompt);
 
+    //var question = $('<p>').append(questionsBank[index].question);
+    //displayQuiz.append(question);
+    
+    var radioButtons = createAnswers(index);
+    displayQuiz.append(radioButtons);
+    
+    return displayQuiz;
+    }
+
+function createAnswers (index){
+    for (var i = 0; i < questionsBank[index].a.length; i++) {
+        var item = $('input[<li type=button name=answer value=" + i "+ />]').val(); // update with right classes
+        quizPrompt.append('<li>' +item +'</li>');
+        input += questions[index].choices[i];
+
+        item.append(input);
+        radioList.append(item);
         }
+    return radioList;
+}
+
+getQuestions();
+showAnswer();
+
+
+
+            // for(letter in question[i].answers){
+            //     // add radio button
+            //     answersBank.$('<flex-row justify-space-between align-center p-2 bg-light text-dark');
+            //     answersBank.$('<li class="flex-row justify-space-between align-center p-2 bg-light text-dark">')
+            //     answersBank.text(answers);
+            //     quizPrompt.append(questionBank);
+            // }
+
+function UserScore(){
+    var score = $('<p>',{id: 'question'});
+    
+    var numCorrect = 0;
+    for (var j = 0; j < selections.length; j++) {
+        if (selections[j] === questions[j].correctAnswer) {
+        numCorrect++;
+      }
     }
-
-    $('.quizPrompt').text("Question " + questionNumber);
-    $('.question').text(quizContainer.question);
-
-
-    function showAnswer(){
-
-    }
-
-    getQuestions();
-    showAnswer();
-    }
-
-
+    score.append('Score: ' + numCorrect);
+    return score;
+  }
+            
 function endGame(){
     //show last page and user score
     clearInterval(timer);
