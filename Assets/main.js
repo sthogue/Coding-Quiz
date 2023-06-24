@@ -1,9 +1,10 @@
 var visibleQuestion = document.querySelector(".question");
 var timerElement = document.querySelector(".timer-counter");
 var startButton = document.querySelector(".start-button");
+var quizPrompt = $('.quiz-prompt');
 
 var UserScore = 0;
-var timer;
+var timer = null;
 var timerCounter;
 var questionsComplete = false;
 
@@ -60,16 +61,34 @@ var questionBank= [
 // lay out basic structure
 
 
-function startQuiz(){
-    timer = 90;
-    
+function startQuiz(quizContainer, questionNumber){
+    timerCounter = 90;
+    timerEl();
     // Stops the start button from being called when game is in session
     startButton.disabled = true;
 
-    function getQuestions(){
+    // var output = [];
+    // var answersBank;
+    function getQuestions(questions){
+        for (var i = 0; i < questions; i++) {
+        
+            answersBank = [];
+            
+            var displayQuiz = $('<div>');
+            for(letter in question[i].answers){
+                // add radio button
+                answersBank$('<flex-row justify-space-between align-center p-2 bg-light text-dark');
+                answersBank$('<li class="flex-row justify-space-between align-center p-2 bg-light text-dark">')
+                answersBank.text(answers);
+                quizPrompt.append(questionBank);
+            }
 
-
+        }
     }
+
+    $('.quizPrompt').text("Question " + questionNumber);
+    $('.question').text(quizContainer.question);
+
 
     function showAnswer(){
 
@@ -77,12 +96,22 @@ function startQuiz(){
 
     getQuestions();
     showAnswer();
-};
+    }
+
 
 function endGame(){
     //show last page and user score
+    clearInterval(timer);
+    secondsLeft = 90;
+    startButton.disabled = false;
+
 }
 
+function highScore (){
+    UserScore.textContent.scoreCount;
+    localStorage.setItem("High Score", scoreCount, "User Initials", userInitials);
+    
+}
 
 function timerEl(){
     //set timer 
@@ -98,7 +127,11 @@ function timerEl(){
 }
 
 // Add event listener for button
-
+startButton.addEventListener("click", startQuiz);
 // call start game function
 
 // reset button
+var resetButton = document.querySelector(".reset-button");
+
+//function resetQuiz(){
+ //var storedWins = localStorage.getItem("score");}
