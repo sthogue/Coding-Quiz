@@ -1,135 +1,126 @@
-var visibleQuestion = document.querySelector(".question");
+// var visibleQuestion = document.querySelector(".quiz");
 var timerElement = document.querySelector(".timer-counter");
-var startButton = document.querySelector(".start-button");
-var quizPrompt = $('.quiz-prompt');
+var quizHeader = $('#header');
+// var visibleResults = document.querySelector(".results");
+var startButton = $("#start-button");
+var resetButton = document.querySelector("#reset-button");
 
 var UserScore = 0;
 var timer = null;
 var timerCounter;
+var questionNumber = 0;
 
-var questionsBank = [
-    {
-        question: "Commonly used data types do not include?",
-        a: "Strings",
-        b: "Booleans",
-        c: "Alerts",
-        d: "Numbers",
-        correct: "c",
+var question = [{
+        prompt: "Commonly used data types do not include?",
+        choices: ["Strings", "Booleans", "Alerts", "Numbers"],
+        correct: 2,
     },
     {
-        question: "The condition in an if/else statement is enclosed with ______ ?",
-        a: "Quotes",
-        b: "Curly Brackets",
-        c: "Parenthesis",
-        d: "Square Brackets",
-        correct: "c",
+        prompt: "The condition in an if/else statement is enclosed with ______ ?",
+        choices: ["Quotes","Curly Brackets","Parenthesis","Square Brackets"],
+        correct: 3,
     },
     {
-        question: "Arrays in JavaScript can be used to store?",
-        a: "Numbers & Strings",
-        b: "Other arrays",
-        c: "Booleans",
-        d: "All of the above",
-        correct: "d",
+        prompt: "Arrays in JavaScript can be used to store?",
+        choices: ["Numbers & Strings", "Other arrays", "Booleans", "All of the above"],
+        correct: 3,
     },
     {
-        question: "Arrays in JavaScript can be used to store?",
-        a: "Numbers & Strings",
-        b: "Other arrays",
-        c: "Booleans",
-        d: "All of the above",
-        correct: "d",
+        prompt: "Arrays in JavaScript can be used to store?",
+        choices: ["Numbers & Strings", "Other arrays", "Booleans","All of the above"],
+        correct: 3,
     },
     {
-        question:
-          "A very useful tool used during development and debugging for printing content to the debugger is?",
-        a: "console.log",
-        b: "Terminal/Bash",
-        c: "For loops",
-        d: "JavaScript",
-        correct: "a",
+        prompt: "A very useful tool used during development and debugging for printing content to the debugger is?",
+        choices: ["console.log", "Terminal/Bash", "For loops", "JavaScript"],
+        correct: 0,
       },
 ];
 
 // lay out basic structure
+function showQuestion (q){
+    // selects dom element
+    let quizPrompt = document.getElementById('quizPrompt');
+    // modifies dom element
+    quizPrompt.textContent = q.prompt;
 
+    // selecting by query
+    var possibleAnswer = document.querySelectorAll('.possibleAnswer');
+    var answerKey = document.getElementById("answerKey");
 
-function startQuiz(event){
+    for (var i=0; i<q.length; i++){
+      quizPrompt.textContent = q.prompt[0];
+      possibleAnswer.forEach(function(element, index){
+        element.textContent = q.choices[index];
+        element.addEventListener('click', function(){
+            // check correct answer
+            if (q.correct == index){
+                UserScore = UserScore + 10;
+                console.log(UserScore);
+                answerKey.textContent = "Correct!";
+            } else {
+                answerKey.textContent = "Wrong!";
+                console.log('wrong answer'); }
+        });
+     });
+    }
+    
+
+    resetButton.createElement('<button>');
+    resetButton.textContent= 'Reset Game';
+    document.body.appendChild(resetButton);
+
+}
+
+ 
+function startGame(event){
     event.preventDefault();
     timerCounter = 90;
+    // get timer
     timerEl();
-    // Stops the start button from being called when game is in session
-    startButton.disabled = true;
+    // hide start button
+    startButton.hide();
+    quizHeader.hide();
+    showQuestion(question);
 
-    var output = [];
-    var UserAnswer; // This will hold what the user selects
-    var questionsComplete = 0; // counts how many questions users has completed
 }
-function getQuestions(index){
-    var displayQuiz = $('<div>', {id: 'question'});
+    
+ // if the current question = 0 then pull first question
+ // if the 
+ // if the current question is the last stop
+    // show questions
+    // save score
+    // end game 
+    
+    // update html elements with text
+    // create unordered list
+    // create list items
+    // create user input
+
+    // find current question
+    // display current answer
+    // log if correct 
+    // loop to next question
+
         
-    var questionPrompt = $('<h2>Question ' + (index + 1) + ':</h2>');
-    displayQuiz.append(questionPrompt);
-
-    //var question = $('<p>').append(questionsBank[index].question);
-    //displayQuiz.append(question);
-    
-    var radioButtons = createAnswers(index);
-    displayQuiz.append(radioButtons);
-    
-    return displayQuiz;
-    }
-
-function createAnswers (index){
-    for (var i = 0; i < questionsBank[index].a.length; i++) {
-        var item = $('input[<li type=button name=answer value=" + i "+ />]').val(); // update with right classes
-        quizPrompt.append('<li>' +item +'</li>');
-        input += questions[index].choices[i];
-
-        item.append(input);
-        radioList.append(item);
-        }
-    return radioList;
-}
-
-getQuestions();
-showAnswer();
 
 
+// function userScore(){
 
-            // for(letter in question[i].answers){
-            //     // add radio button
-            //     answersBank.$('<flex-row justify-space-between align-center p-2 bg-light text-dark');
-            //     answersBank.$('<li class="flex-row justify-space-between align-center p-2 bg-light text-dark">')
-            //     answersBank.text(answers);
-            //     quizPrompt.append(questionBank);
-            // }
+// }
 
-function UserScore(){
-    var score = $('<p>',{id: 'question'});
-    
-    var numCorrect = 0;
-    for (var j = 0; j < selections.length; j++) {
-        if (selections[j] === questions[j].correctAnswer) {
-        numCorrect++;
-      }
-    }
-    score.append('Score: ' + numCorrect);
-    return score;
-  }
-            
 function endGame(){
-    //show last page and user score
-    clearInterval(timer);
-    secondsLeft = 90;
-    startButton.disabled = false;
 
 }
 
-function highScore (){
-    UserScore.textContent.scoreCount;
-    localStorage.setItem("High Score", scoreCount, "User Initials", userInitials);
-    
+function resetGame(){
+    startButton.show();
+    timerCounter = 90;
+    UserScore = 0;
+
+
+
+
 }
 
 function timerEl(){
@@ -145,12 +136,7 @@ function timerEl(){
     }, 1000);
 }
 
-// Add event listener for button
-startButton.addEventListener("click", startQuiz);
 // call start game function
-
-// reset button
-var resetButton = document.querySelector(".reset-button");
-
-//function resetQuiz(){
- //var storedWins = localStorage.getItem("score");}
+startButton.on("click", startGame);
+// calls on Reset button
+//resetButton.addEventListener("click", resetGame());

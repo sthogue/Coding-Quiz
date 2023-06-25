@@ -8,8 +8,8 @@
     </head>
     <body>
         <header>
-            <h1> Coding Quiz </h1>
-            <button class="start-button">Start</button>
+            <h1 id="header"> Coding Quiz </h1>
+            <button id="start-button">Start</button>
         </header>
 
         <main> 
@@ -19,24 +19,15 @@
                     <li><div class="timer-counter"></div></li>
                 </ul>
             </nav>
+            <div id ="quizPrompt"></div>
             <ul>
-                <li>
-                    <input type="radio" name="possibleAnswer" id="a" value="a">
-                    <label for="a" id="label-a"></label>
-                </li>
-                <li>
-                    <input type="radio" name="possibleAnswer" id="b" value="b">
-                    <label for="b" id="label-b"></label>
-                </li>
-                <li>
-                    <input type="radio" name="possibleAnswer" id="c"  value="c">
-                    <label for="c" id="label-c"></label>
-                </li>
-                <li>
-                    <input type="radio" name="possibleAnswer" id="d" value="d">
-                    <label for="d" id="label-d"></label>
-                </li>
+                <li class = "possibleAnswer"> </li>
+                <li class = "possibleAnswer"> </li>
+                <li class = "possibleAnswer"> </li>
+                <li class = "possibleAnswer"> </li>
             </ul>
+            <div id="answerKey"></div>
+            <div id="reset button"></div>
         </main>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" src="/Assets/main.js"></script>
