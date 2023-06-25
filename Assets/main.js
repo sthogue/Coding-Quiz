@@ -18,7 +18,7 @@ var question = [{
     {
         prompt: "The condition in an if/else statement is enclosed with ______ ?",
         choices: ["Quotes","Curly Brackets","Parenthesis","Square Brackets"],
-        correct: 3,
+        correct: 2,
     },
     {
         prompt: "Arrays in JavaScript can be used to store?",
@@ -47,29 +47,32 @@ function showQuestion (q){
     var possibleAnswer = document.querySelectorAll('.possibleAnswer');
     var answerKey = document.getElementById("answerKey");
 
-    
+    const questionLength = q[questionNumber].length;
+
+    nextQuestion(q);
+   function nextQuestion (q){ 
     quizPrompt.textContent = q[questionNumber].prompt;
       possibleAnswer.forEach(function(element, index){
         element.textContent = q[questionNumber].choices[index];
         element.addEventListener('click', function(){
             // check correct answer
-            if (q[questionNumber].correct == index){
-                UserScore = UserScore + 10;
+            if (timer === 0 || questionNumber === questionLength){
+                endGame();
+            } else if (q[questionNumber].correct == index){
+                UserScore = UserScore +10;
                 console.log(UserScore);
                 answerKey.textContent = "Correct!";
                 questionNumber ++;
-                showQuestion();
+                nextQuestion(q);
             } else {
                 answerKey.textContent = "Wrong!";
                 console.log('Wrong answer');
                 questionNumber ++;
-                showQuestion(); }
-
-
+                nextQuestion(q); }
         });
      });
     
-    
+   }
 
     const resetButton = document.createElement('button');
     resetButton.textContent= 'Reset Game';
@@ -110,18 +113,18 @@ function startGame(event){
         
 
 
-// function userScore(){
-
-// }
 
 function endGame(){
+    var finalScore = UserScore;
+
 
 }
 
-function resetGame(){
+function resetGame(q){
     startButton.show();
     timerCounter = 90;
     UserScore = 0;
+    showQuestion(q);
 
 
 
@@ -137,11 +140,10 @@ function timerEl(){
             //if time runs out end the game
             clearInterval(timer)
             endGame();
+        
         }
     }, 1000);
 }
 
 // call start game function
 startButton.on("click", startGame);
-// calls on Reset button
-//resetButton.addEventListener("click", resetGame());
