@@ -42,31 +42,36 @@ function showQuestion (q){
     // selects dom element
     let quizPrompt = document.getElementById('quizPrompt');
     // modifies dom element
-    quizPrompt.textContent = q.prompt;
-
+    
     // selecting by query
     var possibleAnswer = document.querySelectorAll('.possibleAnswer');
     var answerKey = document.getElementById("answerKey");
 
-    for (var i=0; i<q.length; i++){
-      quizPrompt.textContent = q.prompt[0];
+    
+    quizPrompt.textContent = q[questionNumber].prompt;
       possibleAnswer.forEach(function(element, index){
-        element.textContent = q.choices[index];
+        element.textContent = q[questionNumber].choices[index];
         element.addEventListener('click', function(){
             // check correct answer
-            if (q.correct == index){
+            if (q[questionNumber].correct == index){
                 UserScore = UserScore + 10;
                 console.log(UserScore);
                 answerKey.textContent = "Correct!";
+                questionNumber ++;
+                showQuestion();
             } else {
                 answerKey.textContent = "Wrong!";
-                console.log('wrong answer'); }
+                console.log('Wrong answer');
+                questionNumber ++;
+                showQuestion(); }
+
+
         });
      });
-    }
+    
     
 
-    resetButton.createElement('<button>');
+    const resetButton = document.createElement('button');
     resetButton.textContent= 'Reset Game';
     document.body.appendChild(resetButton);
 
