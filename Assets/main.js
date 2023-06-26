@@ -16,27 +16,27 @@ var questionNumber = 0;
 var question = [{
         prompt: "Commonly used data types do not include?",
         choices: ["Strings", "Booleans", "Alerts", "Numbers"],
-        correct: 2,
+        correct: "Alters",
     },
     {
         prompt: "The condition in an if/else statement is enclosed with ______ ?",
         choices: ["Quotes","Curly Brackets","Parenthesis","Square Brackets"],
-        correct: 2,
+        correct: "Parenthesis",
     },
     {
         prompt: "Arrays in JavaScript can be used to store?",
         choices: ["Numbers & Strings", "Other arrays", "Booleans", "All of the above"],
-        correct: 3,
+        correct: "All of the above",
     },
     {
         prompt: "Arrays in JavaScript can be used to store?",
         choices: ["Numbers & Strings", "Other arrays", "Booleans","All of the above"],
-        correct: 3,
+        correct: "All of the above",
     },
     {
         prompt: "A very useful tool used during development and debugging for printing content to the debugger is?",
         choices: ["console.log", "Terminal/Bash", "For loops", "JavaScript"],
-        correct: 0,
+        correct: "console.log",
       },
 ];
 
@@ -62,7 +62,7 @@ function showQuestion (q){
             ansBtn.textContent = choices;
             btnContainer.appendChild(ansBtn);
             ansBtn.addEventListener("click", function (){
-                if (ansBtn === q[questionNumber].correct){
+                if (ansBtn.textContent === q[questionNumber].correct){
                     UserScore = UserScore + 10;
                     console.log(UserScore);
                     answerKey.textContent = "Correct!";
