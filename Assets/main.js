@@ -46,39 +46,38 @@ function showQuestion (q){
     // selecting by query
     var possibleAnswer = document.querySelectorAll('.possibleAnswer');
     var answerKey = document.getElementById("answerKey");
+    var finalQuestion = question.length;
 
-    const questionLength = q[questionNumber].length;
-
-    nextQuestion(q);
-   function nextQuestion (q){ 
-    quizPrompt.textContent = q[questionNumber].prompt;
-      possibleAnswer.forEach(function(element, index){
-        element.textContent = q[questionNumber].choices[index];
-        element.addEventListener('click', function(){
-            // check correct answer
-            if (timer === 0 || questionNumber === questionLength){
-                endGame();
-            } else if (q[questionNumber].correct == index){
-                UserScore = UserScore +10;
-                console.log(UserScore);
-                answerKey.textContent = "Correct!";
+    if (questionNumber === finalQuestion){
+        // call final score
+        return;
+    } else if (timer === 0 ){
+        // clear timer
+        // render final score
+    } else {
+        quizPrompt.textContent = q[questionNumber].prompt;
+        q[questionNumber].choices.forEach( choices => {
+            let ansBtn = document.createElement("button");
+            ansBtn.textContent = choices;
+            ansBtn.addEventListener("click", function (){
+                if (ansBtn === q[questionNumber].correct){
+                    UserScore = UserScore + 10;
+                    console.log(UserScore);
+                    answerKey.textContent = "Correct!";
+                    document.body.appendChild(possibleAnswer);
+                }
                 questionNumber ++;
-                nextQuestion(q);
-            } else {
-                answerKey.textContent = "Wrong!";
-                console.log('Wrong answer');
-                questionNumber ++;
-                nextQuestion(q); }
+                showQuestion(q);
+            })
         });
-     });
+    }
+
     
+    // const resetButton = document.createElement('button');
+    // resetButton.textContent= 'Reset Game';
+    // document.body.appendChild(resetButton);
    }
 
-    const resetButton = document.createElement('button');
-    resetButton.textContent= 'Reset Game';
-    document.body.appendChild(resetButton);
-
-}
 
  
 function startGame(event){
