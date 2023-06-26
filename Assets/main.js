@@ -18,7 +18,7 @@ submitInitialsBtn.hide();
 var question = [{
         prompt: "Commonly used data types do not include?",
         choices: ["Strings", "Booleans", "Alerts", "Numbers"],
-        correct: "Alters",
+        correct: "Alerts",
     },
     {
         prompt: "The condition in an if/else statement is enclosed with ______ ?",
@@ -48,7 +48,7 @@ function showQuestion (q){
     var answerKey = document.getElementById("answerKey");
     var finalQuestion = question.length;
 
-    if (questionNumber === finalQuestion){
+    if (questionNumber === finalQuestion-1){
         endGame();
         return;
     } else if (timer === 0 ){
@@ -119,12 +119,10 @@ function endGame(){
     finalPrompt.textContent = "End of the Quiz! Your final score is " + UserScore;
     document.body.appendChild(finalPrompt);
 
-    quizPrompt.style.display = "block";
-    btnContainer.style.display = "block";
+    //quizPrompt.style.display = "block";
+    //btnContainer.style.display = "block";
 
-    var submitInitInput = document.getElementById("#enterInitials");
-    var submitInitBtn = document.createElement("button");
-    submitInitInput.appendChild(submitInitBtn);
+    submitInitialsBtn.show();
 }
 
 function endScore(){
