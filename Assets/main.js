@@ -1,8 +1,8 @@
-// var visibleQuestion = document.querySelector(".quiz");
 var timerElement = document.querySelector(".timer-counter");
 var quizHeader = $('#header');
-// var visibleResults = document.querySelector(".results");
 var startButton = $("#start-button");
+var initiInput = $("#inputInit");
+var submitInitialsBtn = $("#submitInitials");
 var resetButton = document.querySelector("#reset-button");
 let quizPrompt = document.getElementById('quizPrompt');
 let ansBtn = document.createElement("button");
@@ -13,6 +13,8 @@ var timer = null;
 var timerCounter;
 var questionNumber = 0;
 
+initiInput.hide();
+submitInitialsBtn.hide();
 var question = [{
         prompt: "Commonly used data types do not include?",
         choices: ["Strings", "Booleans", "Alerts", "Numbers"],
@@ -62,11 +64,11 @@ function showQuestion (q){
             ansBtn.textContent = choices;
             btnContainer.appendChild(ansBtn);
             ansBtn.addEventListener("click", function (){
-                if (ansBtn.textContent === q[questionNumber].correct){
+                if (ansBtn.textContent == q[questionNumber].correct){
                     UserScore = UserScore + 10;
                     console.log(UserScore);
                     answerKey.textContent = "Correct!";
-                    document.body.appendChild(possibleAnswer);
+                    document.body.appendChild(btnContainer);
                 }
                 questionNumber ++;
                 showQuestion(q);
@@ -112,6 +114,7 @@ function startGame(event){
 
 function endGame(){
     clearInterval(timerEl);
+    initiInput.show();
     var finalPrompt = document.createElement("h2");
     finalPrompt.textContent = "End of the Quiz! Your final score is " + UserScore;
     document.body.appendChild(finalPrompt);
@@ -124,17 +127,32 @@ function endGame(){
     submitInitInput.appendChild(submitInitBtn);
 }
 
-function resetGame(q){
-    startButton.show();
-    timerCounter = 90;
-    UserScore = 0;
-    showQuestion(q);
-
-
-
+function endScore(){
 
 }
+function scoreBoard(){
+    var userScore = JSON.parse(localStorage.getItem('userScore'));
+    if  (userScore !== null){
+        userScore.forEach(player =>{
+            initiInput.show();
+            submitInitialsBtn.show();
+            let playerName = document.createElement("h4");
+            playerName.textContent = person.initiInput + ' - ' + player.score;
+            scoreCounter.appendChild(playerName);
+        })
+    } 
+    else { return; 
+    }
 
+    submitInitialsBtn.addEventListener("click", function(event){
+        event.preventDefault();
+
+        var UserInfo = {
+            init: initiInput.value, userScore:UserScore}
+            
+        
+    })
+}
 function timerEl(){
     //set timer 
     timer = setInterval(function(){

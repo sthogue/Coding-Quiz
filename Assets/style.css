@@ -9,6 +9,10 @@ body {
     color: #ffffff;
 
 }
+
+main{
+    align-items: center;
+}
 header{
     display: flex;
     flex-direction: column;
@@ -36,9 +40,9 @@ button{
     cursor: pointer;
     font-size: 2em;
     margin-top: 1em;
+    align-items: center;
 }
 
 h1{
     font-size: 30px;
 }
-
