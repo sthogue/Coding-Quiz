@@ -4,6 +4,9 @@ var quizHeader = $('#header');
 // var visibleResults = document.querySelector(".results");
 var startButton = $("#start-button");
 var resetButton = document.querySelector("#reset-button");
+let quizPrompt = document.getElementById('quizPrompt');
+let ansBtn = document.createElement("button");
+let btnContainer = document.getElementById('answerButton');
 
 var UserScore = 0;
 var timer = null;
@@ -39,26 +42,25 @@ var question = [{
 
 // lay out basic structure
 function showQuestion (q){
-    // selects dom element
-    let quizPrompt = document.getElementById('quizPrompt');
-    // modifies dom element
     
-    // selecting by query
-    var possibleAnswer = document.querySelectorAll('.possibleAnswer');
     var answerKey = document.getElementById("answerKey");
     var finalQuestion = question.length;
 
     if (questionNumber === finalQuestion){
-        // call final score
+        endGame();
         return;
     } else if (timer === 0 ){
-        // clear timer
-        // render final score
+        clearInterval(timerEl);
+        endGame();
     } else {
+        
+        btnContainer.innerHTML = "";
         quizPrompt.textContent = q[questionNumber].prompt;
+        
         q[questionNumber].choices.forEach( choices => {
             let ansBtn = document.createElement("button");
             ansBtn.textContent = choices;
+            btnContainer.appendChild(ansBtn);
             ansBtn.addEventListener("click", function (){
                 if (ansBtn === q[questionNumber].correct){
                     UserScore = UserScore + 10;
@@ -71,11 +73,6 @@ function showQuestion (q){
             })
         });
     }
-
-    
-    // const resetButton = document.createElement('button');
-    // resetButton.textContent= 'Reset Game';
-    // document.body.appendChild(resetButton);
    }
 
 
@@ -91,8 +88,8 @@ function startGame(event){
     showQuestion(question);
 
 }
-    
- // if the current question = 0 then pull first question
+
+// if the current question = 0 then pull first question
  // if the 
  // if the current question is the last stop
     // show questions
@@ -114,9 +111,17 @@ function startGame(event){
 
 
 function endGame(){
-    var finalScore = UserScore;
+    clearInterval(timerEl);
+    var finalPrompt = document.createElement("h2");
+    finalPrompt.textContent = "End of the Quiz! Your final score is " + UserScore;
+    document.body.appendChild(finalPrompt);
 
+    quizPrompt.style.display = "block";
+    btnContainer.style.display = "block";
 
+    var submitInitInput = document.getElementById("#enterInitials");
+    var submitInitBtn = document.createElement("button");
+    submitInitInput.appendChild(submitInitBtn);
 }
 
 function resetGame(q){
