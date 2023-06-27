@@ -10,13 +10,16 @@ body {
 
 }
 
-main{
+main, h2{
     align-items: center;
+    background-color: black;
 }
 header{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: black;
+    border: 50px;
 }
 
 nav{
@@ -45,4 +48,45 @@ button{
 
 h1{
     font-size: 30px;
+}
+
+input{
+    border: 3px solid #555;
+    font-size: 20px;
+}
+
+#finalPrompt,
+#answerButton,
+#inputInit,
+#submitInitials{
+    display: flex;
+    justify-content: center;
+    padding: 2;
+}
+
+#view-high-scores{
+    line-height: 1em;
+    font-size: 1em;
+}
+
+.hide{
+    display: none;
+}
+
+.timer-counter{
+    padding-top: 1em;
+}
+
+#quiz-prompt-container{
+    text-align: center;
+}
+
+#quizPrompt,
+#final-Prompt-Container,
+#score-board-container{
+    font-size: 20px;
+}
+
+#answerButton{
+    background-color: black;
 }

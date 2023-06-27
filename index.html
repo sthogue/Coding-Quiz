@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="Assets/style.css">
         <title>Coding Quiz</title>
+        <img id= "backgroundImg" href = "Assets/img/binary image.jpg">
     </head>
     <body>
         <header>
@@ -15,20 +16,24 @@
         <main> 
             <nav>
                 <ul>
-                    <li><div> View High Scores</div></li>
+                    <li><button id="view-high-scores"> View High Scores</button></li>
                     <li><div class="timer-counter"></div></li>
                 </ul>
             </nav>
-            <div id="quizPrompt"></div>
-            <div id="answerButton"></div>
-            <div id="answerKey"></div>
-            <div id="reset-button"></div>
-            <span>
+            <div id="quiz-prompt-container">
+                <div id="quizPrompt"></div>
+                <div id="answerButton" class="hide"></div>
+            </div>
+            <div id="score-board-container" class="hide">
+                <div id="score-board-prompt"> User High Scores:</div>
+                <div id="score-board" class="hide"></div>
+                <button id="resetBtn" class ="hide">Reset Game</button>
+            </div>
+            <div id="Final-Prompt-Container">
                 <div id="finalPrompt"></div>
                 <input placeholder="Initials Here" id="inputInit" display=hidden>
                 <button id="submitInitials"> Submit</button>
-            </span>
-            
+            </div>
         </main>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" src="/Assets/main.js"></script>

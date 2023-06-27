@@ -1,20 +1,24 @@
 var timerElement = document.querySelector(".timer-counter");
 var quizHeader = $('#header');
 var startButton = $("#start-button");
-var initiInput = $("#inputInit");
+var initialsInput = $("#inputInit");
 var submitInitialsBtn = $("#submitInitials");
-var resetButton = document.querySelector("#reset-button");
-let quizPrompt = document.getElementById('quizPrompt');
+let quizPrompt = document.getElementById("quizPrompt");
 let ansBtn = document.createElement("button");
-let btnContainer = document.getElementById('answerButton');
+let btnContainer = document.getElementById("answerButton");
+var finalPromptContainer = document.getElementById("Final-Prompt-Container");
 
-var UserScore = 0;
+var userScore = 0;
 var timer = null;
 var timerCounter;
 var questionNumber = 0;
+var scoreBoard = document.getElementById("score-board");
+var scoreBoardContainer = document.getElementById("score-board-container");
+var resetBtn = document.getElementById("resetBtn");
 
-initiInput.hide();
+initialsInput.hide();
 submitInitialsBtn.hide();
+
 var question = [{
         prompt: "Commonly used data types do not include?",
         choices: ["Strings", "Booleans", "Alerts", "Numbers"],
@@ -31,11 +35,6 @@ var question = [{
         correct: "All of the above",
     },
     {
-        prompt: "Arrays in JavaScript can be used to store?",
-        choices: ["Numbers & Strings", "Other arrays", "Booleans","All of the above"],
-        correct: "All of the above",
-    },
-    {
         prompt: "A very useful tool used during development and debugging for printing content to the debugger is?",
         choices: ["console.log", "Terminal/Bash", "For loops", "JavaScript"],
         correct: "console.log",
@@ -44,16 +43,17 @@ var question = [{
 
 // lay out basic structure
 function showQuestion (q){
-    
-    var answerKey = document.getElementById("answerKey");
+
     var finalQuestion = question.length;
 
-    if (questionNumber === finalQuestion-1){
+    if (questionNumber === finalQuestion){
         endGame();
+        displayScoreBoard();
+        clearInterval(timer);
         return;
-    } else if (timer === 0 ){
-        clearInterval(timerEl);
-        endGame();
+    } else if (timer <= 0 ){
+        clearInterval(timer);
+        displayScoreBoard();
     } else {
         
         btnContainer.innerHTML = "";
@@ -62,12 +62,12 @@ function showQuestion (q){
         q[questionNumber].choices.forEach( choices => {
             let ansBtn = document.createElement("button");
             ansBtn.textContent = choices;
+            btnContainer.classList.remove("hide");
             btnContainer.appendChild(ansBtn);
             ansBtn.addEventListener("click", function (){
                 if (ansBtn.textContent == q[questionNumber].correct){
-                    UserScore = UserScore + 10;
-                    console.log(UserScore);
-                    answerKey.textContent = "Correct!";
+                    userScore = userScore + 10;
+                    console.log(userScore);
                     document.body.appendChild(btnContainer);
                 }
                 questionNumber ++;
@@ -82,75 +82,84 @@ function showQuestion (q){
 function startGame(event){
     event.preventDefault();
     timerCounter = 90;
+    userScore = 0;
     // get timer
     timerEl();
     // hide start button
     startButton.hide();
     quizHeader.hide();
+    questionNumber = 0;
+    btnContainer.classList.remove("hide");
+    quizPrompt.classList.remove("hide");
+    finalPromptContainer.classList.add("hide")
+    scoreBoardContainer.classList.add("hide");
     showQuestion(question);
 
 }
 
-// if the current question = 0 then pull first question
- // if the 
- // if the current question is the last stop
-    // show questions
-    // save score
-    // end game 
-    
-    // update html elements with text
-    // create unordered list
-    // create list items
-    // create user input
-
-    // find current question
-    // display current answer
-    // log if correct 
-    // loop to next question
-
-        
-
-
-
 function endGame(){
-    clearInterval(timerEl);
-    initiInput.show();
+    clearInterval(timer);
+    finalPromptContainer.classList.remove("hide");
     var finalPrompt = document.createElement("h2");
-    finalPrompt.textContent = "End of the Quiz! Your final score is " + UserScore;
+    finalPrompt.classList.add("final-prompt")
+    finalPrompt.textContent = "End of the Quiz! Your final score is " + userScore;
     document.body.appendChild(finalPrompt);
-
-    //quizPrompt.style.display = "block";
-    //btnContainer.style.display = "block";
-
+    
+    ansBtn.classList.add("hide");
+    btnContainer.classList.add("hide");
+    quizPrompt.classList.add("hide");
     submitInitialsBtn.show();
+    initiInput.show();
 }
 
-function endScore(){
-
-}
-function scoreBoard(){
-    var userScore = JSON.parse(localStorage.getItem('userScore'));
-    if  (userScore !== null){
-        userScore.forEach(player =>{
-            initiInput.show();
+function displayScoreBoard(){
+    scoreBoardContainer.classList.remove("hide");
+    scoreBoard.classList.remove("hide");
+    scoreBoardContainer.classList.remove("scoreBoardContainer");
+    resetBtn.classList.add("hide");
+    scoreBoard.innerHTML = "";
+    btnContainer.innerHTML = ""
+    
+    var userHighScore = JSON.parse(localStorage.getItem("user-high-scores"));
+    
+    if  (userHighScore !== null){
+        userHighScore.forEach(player =>{
+            initialsInput.show();
             submitInitialsBtn.show();
-            let playerName = document.createElement("h4");
-            playerName.textContent = person.initiInput + ' - ' + player.score;
-            scoreCounter.appendChild(playerName);
+            var playerName = document.createElement("h4");
+            playerName.textContent = player.initials + ' - ' + player.userScore;
+            scoreBoard.appendChild(playerName);
         })
     } 
     else { return; 
     }
 
-    submitInitialsBtn.addEventListener("click", function(event){
-        event.preventDefault();
-
-        var UserInfo = {
-            init: initiInput.value, userScore:UserScore}
-            
-        
-    })
 }
+
+var viewHighScoresBtn = document.getElementById("view-high-scores");
+viewHighScoresBtn.addEventListener('click', scoreBoard);
+submitInitialsBtn.on("click", function(event){
+    
+    event.preventDefault();
+    var userHighScore = JSON.parse(localStorage.getItem("user-high-scores")) || [];
+    var UserInfo = {
+        initials: initialsInput.val(), userScore:userScore}
+        
+    userHighScore.push(UserInfo);
+    localStorage.setItem("user-high-scores", JSON.stringify(userHighScore))
+    displayScoreBoard();
+    submitInitialsBtn.hide();
+    initialsInput.hide();
+
+    $(".final-prompt").hide();
+    quizPrompt.classList.add("hide");
+
+    
+    resetBtn.classList.remove("hide");
+    resetBtn.addEventListener("click", startGame);
+    
+})
+
 function timerEl(){
     //set timer 
     timer = setInterval(function(){
@@ -158,7 +167,7 @@ function timerEl(){
         timerElement.textContent = "Time Left: " + timerCounter + " seconds";
         if (timerCounter === 0){
             //if time runs out end the game
-            clearInterval(timer)
+            clearInterval(timer);
             endGame();
         
         }
