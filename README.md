@@ -15,10 +15,10 @@ Start of page of application
 Screenshot of the first question on the application
 ![screenshot of the first question on application](/Assets/img/first%20question%20view.png)
 ## Link
- [Click me]()
+ [Click me](https://sthogue.github.io/Coding-Quiz/)
 
 Credit
 
-All HTML, CSS, Javascript were created by my self, in help with the AskBSC Support team, and multiple youtube videos.
+All HTML, CSS, Javascript were created by myself, in help with the AskBSC Support team, a tutoring session and multiple youtube videos.
 
 Background image credit: [https://www.flickr.com/photos/132889348@N07/20607150556]
