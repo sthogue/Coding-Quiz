@@ -46,7 +46,7 @@ var question = [{
 initialsInput.hide();
 submitInitialsBtn.hide();
 finalPromptContainer.classList.add("hide");
-quizPromptContainer.classList.add('hide');
+quizPromptContainer.classList.add("hide");
 
 // show question function
 function showQuestion (q){
