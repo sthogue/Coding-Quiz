@@ -7,12 +7,14 @@ body {
     justify-content: center;
     background-image: url("./img/binary\ image.jpg");
     color: #ffffff;
+    margin: 20px;
+    
 
 }
 
-main, h2{
+main{
     align-items: center;
-    background-color: black;
+
 }
 header{
     display: flex;
@@ -55,10 +57,15 @@ input{
     font-size: 20px;
 }
 
+.box{
+    background-color: black;
+    border-radius: 30px;
+}
 #finalPrompt,
 #answerButton,
 #inputInit,
 #submitInitials{
+    text-align: center;
     display: flex;
     justify-content: center;
     padding: 2;
@@ -78,15 +85,28 @@ input{
 }
 
 #quiz-prompt-container{
+    border-radius: 30px;
     text-align: center;
 }
 
 #quizPrompt,
-#final-Prompt-Container,
+#Final-Prompt-Container,
 #score-board-container{
     font-size: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin: 10px;
 }
 
 #answerButton{
     background-color: black;
+    border-radius: 0px 0px 30px 30px;
+}
+
+#inputInit{
+    width: 500px;
+}
+
+#Final-Prompt-Container{
+    text-align: center;
 }

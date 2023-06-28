@@ -10,11 +10,10 @@ After the user selects their first choice they will then be shown the second que
 If they timer ends or the user finishes the last question in time they will be abele to enter in their initials and hit submit. Their initials will be saved to local storage. 
 
 # Screenshot and link
-## Screenshot
-screenshot of application
-
+![screenshot of first page of application](/Assets/img/Start%20page.png)
+![screenshot of the first question on application](/Assets/img/first%20question%20view.png)
 ## Link
-Click me
+ [Click me]()
 
 Credit
 
