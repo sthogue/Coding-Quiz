@@ -7,7 +7,7 @@ Users will first click on the start button and the timer will start along with s
 
 After the user selects their first choice they will then be shown the second question along with if they got the last question correct or wrong!
 
-If they timer ends or the user finishes the last question in time they will be abele to enter in their initials and hit submit. Their initials will be saved to local storage. 
+If they timer ends or the user finishes the last question in time they will be able to enter in their initials and hit submit. Their initials will be saved to local storage. 
 
 # Screenshot and link
 Start of page of application
